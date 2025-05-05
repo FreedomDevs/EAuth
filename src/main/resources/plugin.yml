@@ -1,0 +1,4 @@
+name: EAuth
+version: '0.1'
+main: dev.elysium.eAuth.EAuth
+api-version: '1.21'
