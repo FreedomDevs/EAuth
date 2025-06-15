@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.elysium"
-version = "0.1"
+version = "0.5"
 
 repositories {
     mavenLocal()
@@ -24,7 +24,7 @@ dependencies {
 
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
-    compileOnly("dev.elysium.eapi:eapi:0.2.1")
+    compileOnly("dev.elysium.eapi:eapi:0.2.10")
 }
 
 tasks {

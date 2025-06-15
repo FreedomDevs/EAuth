@@ -1,6 +1,9 @@
 package dev.elysium.eAuth
 
-import dev.elysium.eAuth.event.PlayerJoinListener
+import dev.elysium.eAuth.command.LoginCommand
+import dev.elysium.eAuth.command.RegisterCommand
+import dev.elysium.eAuth.listener.AuthListener
+import dev.elysium.eAuth.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,19 +20,35 @@ class EAuth : JavaPlugin() {
 
     internal lateinit var eLogger: ELogger
 
+    fun checkEAPI()  {
+        val eapiPlugin = server.pluginManager.getPlugin("EAPI")
+        if (eapiPlugin == null) {
+            eLogger.error("Плагин EAPI не найден! Отключение")
+            server.pluginManager.disablePlugin(this)
+        } else {
+            eLogger.info("Плагин EAPI найден.")
+        }
+    }
+
     override fun onLoad() {
         instance = this
     }
 
     override fun onEnable() {
         eLogger = ELogger(name, logger)
-        eLogger.info("EAuth включен.")
+        checkEAPI()
 
-        server.pluginManager.registerEvents(PlayerJoinListener(this), this)
+        eLogger.info("EAuth включен.")
+        server.pluginManager.registerEvents(AuthListener, this)
+        getCommand("login")?.setExecutor(LoginCommand())
+        getCommand("l")?.setExecutor(LoginCommand())
+        getCommand("register")?.setExecutor(RegisterCommand())
+        getCommand("reg")?.setExecutor(RegisterCommand())
     }
 
     override fun onDisable() {
         pluginScope.cancel()
+        SessionManager.clearAll()
         eLogger.info("EAuth выключен.")
     }
 }
