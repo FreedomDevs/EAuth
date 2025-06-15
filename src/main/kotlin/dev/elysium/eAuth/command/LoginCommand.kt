@@ -32,6 +32,7 @@ class LoginCommand: CommandExecutor {
                         password = password
                     )
                 )
+                ChatUtil.title(sender, "&eОжидайте данные обрабатываются")
                 if (res != null) {
                     AuthListener.authenticate(sender)
                 } else {
