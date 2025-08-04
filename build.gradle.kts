@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.elysium"
-version = "0.6"
+version = "0.6.1"
 
 repositories {
     mavenLocal()

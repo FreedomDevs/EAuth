@@ -6,10 +6,12 @@ import dev.elysium.eAuth.utils.SessionManager
 import dev.elysium.eapi.plugin.EAPIBukkit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
@@ -55,6 +57,16 @@ object AuthListener: Listener {
     }
 
     @EventHandler
+    fun onDamage(e: EntityDamageEvent) {
+        val entity = e.entity
+        if (entity is Player) {
+            if (notAuthenticated.contains(entity.name)) {
+                e.isCancelled = true
+            }
+        }
+    }
+
+    @EventHandler
     fun onCommand(e: PlayerCommandPreprocessEvent) {
         val player = e.player
         if (!notAuthenticated.contains(player.name)) return
@@ -91,7 +103,11 @@ object AuthListener: Listener {
 
         SessionManager.addSession(ip, nick)
         notAuthenticated.remove(nick)
-        ChatUtil.title(player, "&aУспешная авторизация!")
-        player.gameMode = GameMode.SURVIVAL
+
+        Bukkit.getScheduler().runTask(EAuth.instance, Runnable {
+            ChatUtil.title(player, "&aУспешная авторизация!")
+            player.gameMode = GameMode.SURVIVAL
+            player.isFlying = false
+        })
     }
 }
