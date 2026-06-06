@@ -1,0 +1,13 @@
+name: EAuth
+prefix: EAuth
+version: ${version}
+main: dev.elysium.EAuth.Main
+description: Плагин какой-то
+website: 'https://github.com/FreedomDevs/EAuth'
+api-version: '1.21.6'
+authors:
+  - Никто
+
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.2.21
+
