@@ -15,11 +15,13 @@ repositories {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
+    maven {url = uri("https://maven.mcbeeland.ru")}
 }
 
 dependencies {
     compileOnly(kotlin("stdlib"))
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("dev.elysium.eapi:EAPI-common:latest")
 }
 
 val targetJavaVersion = 21
