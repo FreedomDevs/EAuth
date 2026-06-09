@@ -20,8 +20,9 @@ repositories {
 
 dependencies {
     compileOnly(kotlin("stdlib"))
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.0")
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
-    compileOnly("dev.elysium.eapi:EAPI-common:latest")
+    compileOnly("dev.elysium.eapi:EAPI-paper:2.4")
 }
 
 val targetJavaVersion = 21

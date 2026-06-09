@@ -1,7 +1,8 @@
 name: EAuth
 prefix: EAuth
 version: ${version}
-main: dev.elysium.EAuth.Main
+main: dev.elysium.eauth.Main
+bootstrapper: dev.elysium.eauth.EAuthBootstrap
 description: Плагин какой-то
 website: 'https://github.com/FreedomDevs/EAuth'
 api-version: '1.21.6'
@@ -10,4 +11,4 @@ authors:
 
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:2.2.21
-
+  - org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0
