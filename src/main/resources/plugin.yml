@@ -6,8 +6,10 @@ bootstrapper: dev.elysium.eauth.EAuthBootstrap
 description: Плагин какой-то
 website: 'https://github.com/FreedomDevs/EAuth'
 api-version: '1.21.6'
+depend: [EAPI]
 authors:
-  - Никто
+  - mikinol
+  - foksik (Foksif)
 
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:2.2.21
