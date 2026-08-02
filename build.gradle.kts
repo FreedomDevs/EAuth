@@ -7,7 +7,7 @@ plugins {
 
 group = "dev.elysium.eauth"
 
-version = "1.0.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -15,11 +15,14 @@ repositories {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
-    maven {url = uri("https://maven.mcbeeland.ru")}
+    maven {url = uri("https://maven.elysiac.fun")}
 }
 
 dependencies {
     compileOnly(kotlin("stdlib"))
+    compileOnly("io.jsonwebtoken:jjwt-api:0.12.7")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.7")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.7")
 
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.0")
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")

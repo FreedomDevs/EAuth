@@ -1,12 +1,25 @@
 package dev.elysium.eauth
 
-import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import org.slf4j.Logger
 
 class Main : JavaPlugin() {
 
+    companion object {
+        lateinit var instance: Main
+            private set
+        lateinit var logger: Logger
+            private set
+    }
+
+    override fun onLoad() {
+        instance = this
+        dataFolder.mkdirs()
+    }
+
     override fun onEnable() {
-        Bukkit.getPluginManager().registerEvents(JoinDialogListener(), this)
+        saveDefaultConfig()
+        server.pluginManager.registerEvents(onPreLoginListener(), this)
         logger.info("EAuth включен.")
     }
 
