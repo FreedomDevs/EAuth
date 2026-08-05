@@ -19,7 +19,7 @@ class onPreLoginListener: Listener {
 
         val cookie = event.connection.retrieveCookie(NamespacedKey("eauth", "eauth-jwt")).join()
         if (cookie == null) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("JWTクッキーが見つかりません"));
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Отсутствует авторизационный cookie"));
             return;
         }
 
@@ -27,7 +27,7 @@ class onPreLoginListener: Listener {
 
         val file = File(plugin.dataFolder, "key.pem")
         if (!file.exists()) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Internal server error: 公開鍵が見つかりません"))
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Internal server error: JWT ключ не найден"))
             return
         }
 
@@ -43,20 +43,20 @@ class onPreLoginListener: Listener {
 
             if (userName != event.name) {
                 plugin.logger.severe("Игрок пытается зайти под другим ником забань эту мудень")
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("ユーザー名がJWT内のものと一致しません。"))
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Попытка входа с некорректным ником"))
                 return
             }
 
             if (serverName.lowercase() != plugin.config.getString("serverName")?.lowercase()){
                 plugin.logger.severe("Игрок подключается не по тому serverName чекни конфиг мудила")
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("誤ったサーバーにリダイレクトされました。管理者にお問い合わせください。"))
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Некорректное имя сервера для подключения"))
                 return
             }
 
             val nProfile = Bukkit.createProfile(UUID.fromString(uuid), event.name)
             event.playerProfile = nProfile
         } catch (e: Exception) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("無効なJWT"));
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("Ошибка при работе с JWT"));
             return
         }
     }
