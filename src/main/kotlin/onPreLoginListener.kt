@@ -13,7 +13,7 @@ import java.util.UUID
 
 class onPreLoginListener: Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     fun preLogin(event: AsyncPlayerPreLoginEvent) {
         val plugin = Main.instance
 
